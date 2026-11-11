@@ -1,0 +1,31 @@
+:root{--forest:#153428;--paper:#ebe6d9;--gold:#bfa682;--serif:Georgia,serif;--ui:'Segoe UI',Arial,sans-serif;color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:var(--forest);color:var(--paper);font-family:var(--ui)}button,a,select{-webkit-tap-highlight-color:transparent}button,select{font:inherit}a{color:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:5px}img{object-fit:cover}main:focus{outline:none}.skip-link{position:fixed;z-index:200;top:12px;left:12px;transform:translateY(-150%);background:var(--paper);color:var(--forest);padding:14px}.skip-link:focus{transform:none}.site-nav{position:fixed;z-index:80;top:0;left:0;right:0;height:74px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee4;background:linear-gradient(#0a211cd9,#0a211c990 58%,transparent);color:#fff;transition:background-color .35s ease,color .35s ease,border-color .35s ease}
+/* Sobre superfícies claras (coluna editorial do H12, rodapé) o branco sumia. Cada zona
+   inverte sozinha, porque no H12 a marca fica sobre papel e os links sobre a fotografia. */
+.nav-brand:not(.on-light){text-shadow:0 1px 14px #0006}
+.nav-brand.on-light{color:var(--forest)}
+#mainLinks:not(.on-light) a{text-shadow:0 1px 12px #0007}
+#mainLinks.on-light a{color:var(--forest)}
+#mainLinks.on-light a[aria-current]{border-bottom-color:var(--forest)}
+/* Sobre papel a barra perde o véu escuro, que deixava uma faixa acinzentada sobre o creme. */
+.site-nav.on-light{background:linear-gradient(color-mix(in srgb,var(--paper) 94%,transparent),color-mix(in srgb,var(--paper) 78%,transparent) 68%,transparent);border-bottom-color:#52684e33}
+#menuToggle.on-light{color:var(--forest);border-color:#15342866}
+.site-nav.is-open .nav-brand{color:#fff}
+.site-nav.is-open #mainLinks.on-light a{color:#fff}
+.site-nav.is-open #mainLinks.on-light a[aria-current]{border-bottom-color:var(--gold)}.nav-brand{font:28px var(--serif);letter-spacing:.15em;text-decoration:none}.site-nav nav{display:flex;gap:35px}.site-nav nav a{font-size:11px;text-transform:uppercase;text-decoration:none;letter-spacing:.16em;padding:16px 0}.site-nav nav a[aria-current]{border-bottom:1px solid var(--gold)}#menuToggle{display:none}.route-surface{position:relative;z-index:2;background:var(--forest)}.route-preview{position:fixed!important;inset:0!important;overflow:hidden!important;z-index:90!important;width:100%;height:100svh!important;pointer-events:none}.is-route-switching{overflow:hidden}.footer-reveal{position:relative;margin-top:-100svh;height:200svh;z-index:1}.site-footer{position:sticky;top:0;min-height:100svh;padding:6vw 6vw 26px;background:var(--paper);color:var(--forest);display:flex;flex-direction:column;justify-content:space-between}.footer-top{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.16em;padding-bottom:22px;border-bottom:1px solid #52684e55}.footer-center{max-width:950px;padding:7vh 0}.footer-center>span{font-size:9px;letter-spacing:.2em}.footer-center h2{font:400 clamp(48px,7vw,116px)/1.03 var(--serif);letter-spacing:-.05em;margin:24px 0}.footer-center p{font-size:14px;line-height:1.6}.footer-cta{display:inline-flex;margin-top:18px;padding:18px 25px;border:1px solid var(--forest);text-decoration:none;font-size:11px;letter-spacing:.12em}#contact-status{min-height:1.4em;margin:12px 0 0}.footer-bottom{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #52684e55;padding-top:24px;font-size:12px;line-height:1.7}.footer-bottom strong{font:38px var(--serif);letter-spacing:.12em}.footer-bottom nav{display:flex;flex-direction:column}.footer-bottom a{text-decoration:none}.footer-contact{text-decoration:none}.study-note{font-size:10px;color:#596654;margin-top:20px}.skip-intro *{animation:none!important}.logo-image{max-width:55vw;max-height:26vh;object-fit:contain}.qa-overlay{position:fixed;z-index:999;bottom:0;left:0;padding:8px;background:#000c;color:white;font:11px monospace;pointer-events:none}
+/* Tipografia editorial: quebras equilibradas nos títulos e sem linhas órfãs nos textos. */
+.footer-center h2,.differences-heading h2,.elementis-copy h2,.chapter__title{text-wrap:balance}
+.site-nav.is-open{background:#112a20;color:#fff}.site-nav.on-light.is-open{background:#112a20;color:#fff}.site-nav button{background:transparent;color:white;border:1px solid #fff8;padding:11px}
+@media(max-width:680px){.site-nav{height:60px;padding:0 22px}.nav-brand{font-size:23px}
+/* Barra compacta com fundo próprio assim que a página rola: no celular ela cruza foto e
+   papel no mesmo quadro, e texto branco sobre papel não se lê. */
+.site-nav.is-scrolled{background:rgba(16,38,29,.94);border-bottom-color:#ffffff24;backdrop-filter:blur(10px)}#menuToggle{display:block;font-size:11px;letter-spacing:.1em}.site-nav nav{display:none;position:absolute;top:60px;left:0;right:0;background:#112a20;padding:25px;flex-direction:column;gap:5px}.site-nav.is-open nav{display:flex}.footer-center{padding:8vh 0 4vh}.site-footer{padding:80px 25px 24px}.footer-bottom{flex-wrap:wrap}.footer-top{font-size:9px}.footer-center h2{font-size:53px}.footer-reveal{height:210svh}.site-footer{min-height:110svh;top:-10svh}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.footer-reveal{margin-top:0;height:auto}.site-footer{position:relative;top:0}.route-surface{min-height:0}}
+@media(max-width:680px){.footer-reveal{height:200svh}.site-footer{min-height:100svh;top:0}}
+
+/* N1 cobre também a área liberada pelas barras móveis do navegador. */
+.route-preview{height:100%!important;background:var(--forest)}
+
+
+/* Tablet: 6vw fica abaixo da altura da barra fixa e o primeiro bloco do rodapé
+   era coberto por ela no fim da rolagem. Só esta faixa muda. */
+@media(min-width:681px) and (max-width:1233px){.site-footer{padding-top:96px}}

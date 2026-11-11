@@ -1,0 +1,237 @@
+/* ---- Keyframes da abertura aprovada (globais) ------------------------------
+   Precisam ficar FORA de .home-page: @keyframes dentro de uma regra de estilo
+   é descartado pelo navegador com CSS Nesting, o que anulava a entrada
+   temporal H00/H01 inteira (logo, régua, atelier, slogan, CTA e cue). */
+@keyframes masc-a {
+  from { clip-path: inset(49.5% 49.5% 49.5% 49.5% round 50%); }
+  to   { clip-path: inset(0% 0% 0% 0% round 0%); }
+}
+@keyframes presenca { from { opacity: 0; } to { opacity: 1; } }
+@keyframes veu-b {
+  from { clip-path: inset(0% 0% 100% 0%); }
+  to   { clip-path: inset(0% 0% 0% 0%); }
+}
+@keyframes subida-b { from { transform: translateY(5%); } to { transform: translateY(0); } }
+@keyframes regra { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes subir-suave { from { opacity: 0; transform: translateY(46%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes surgir { from { opacity: 0; } to { opacity: 1; } }
+
+.home-page {
+/* ==========================================================================
+   ÉLAN — prova de abertura V3.1 (Remedy Place / Dhun)
+   Mídia fullscreen desde o primeiro frame · entrada TEMPORAL do logotipo
+   Variantes A (máscara) e B (cinematográfica) compartilham o mesmo hero.
+   Números de tempo = HIPÓTESES DE ESTUDO, não cronologia homologada.
+   ========================================================================== */
+
+& {
+  color-scheme: dark;
+  background: #192b21;
+  color: #f5eee3;
+  font-family: var(--ui);
+  /* Timeline de ESTUDO (idêntica nas duas variantes a partir do logo) */
+  --in-logo-delay: .25s;
+  --in-logo-dur: 1.35s;
+  --in-rule-delay: 1.15s;
+  --in-rule-dur: .55s;
+  --in-atelier-delay: 1.1s;
+  --in-atelier-dur: .6s;
+  --in-slogan-delay: 1.25s;
+  --in-slogan-dur: .7s;
+  --in-cta-delay: 2s;   /* depois do slogan (entra→1,95s): ritmo natural de sequência */
+  --in-cta-dur: .6s;
+  --in-cue-delay: 2s;
+  --in-cue-dur: .5s;
+  --in-end: 2.7s; /* usado também pelo JS (gating acessível) */
+  --ease-logo-a: cubic-bezier(.2, .7, .15, 1);
+  --ease-logo-b: cubic-bezier(.25, .8, .15, 1);
+  --ease-rise-b: cubic-bezier(.3, .65, .2, 1);
+  --ease-down: ease-out;
+}
+* { box-sizing: border-box; }
+& { margin: 0; }
+& { scrollbar-gutter: stable; }
+
+.opening { position: relative; height: 100svh; overflow: hidden; isolation: isolate; background: #192b21; }
+
+/* ---- Mídia: fullscreen desde o primeiro frame. Sem transform/zoom. ---- */
+.media { position: absolute; inset: 0; z-index: 0; }
+.media img, .media video {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 50%;
+}
+.media video { position: absolute; inset: 0; }
+.media .poster { position: absolute; inset: 0; }
+.shade { position: absolute; inset: 0; background: linear-gradient(180deg, #07130e66, #07130e33 45%, #07130e88); }
+
+/* ---- Topbar ---- */
+.topbar {
+  position: absolute; z-index: 6; top: 0; left: 0; right: 0; height: 80px;
+  padding: 0 5%; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid #ffffff55; font-size: 10px; letter-spacing: .2em;
+  pointer-events: none;
+  animation: subir-suave var(--in-cta-dur) var(--ease-down) var(--in-cta-delay) both;
+}
+.topbar span:first-child { font: 32px Georgia, serif; letter-spacing: .14em; }
+
+/* ---- Identidade: wrapper OBRIGATÓRIO para animação (aceita SVG/PNG/HTML de logo real) ---- */
+.identity {
+  position: absolute; z-index: 4; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100%; text-align: center; pointer-events: none;
+}
+.brandreveal { /* alvo das keyframes das variantes; a marca em si nunca é deformada */ }
+.brand { display: inline-block; }
+h1 {
+  margin: 0; font: 400 clamp(76px, 13vw, 184px)/.95 Georgia, serif;
+  letter-spacing: .24em; padding-left: .24em;
+}
+.rule { width: 74px; height: 1px; background: #b5a27d; margin: 32px auto 20px;
+  transform-origin: center; animation: regra var(--in-rule-dur) var(--ease-down) var(--in-rule-delay) both; }
+.identity .atelier { margin: 0; font-size: 10px; letter-spacing: .38em; color: #ded7c7;
+  animation: subir-suave var(--in-atelier-dur) var(--ease-down) var(--in-atelier-delay) both; }
+.slogan { margin: 26px 0 0; font-size: 11px; letter-spacing: .42em; color: #cfd8cf; opacity: .92;
+  animation: subir-suave var(--in-slogan-dur) var(--ease-down) var(--in-slogan-delay) both; }
+
+/* ---- VARIANTE A — revelação por máscara (janela central arredondada → retângulo) ---- */
+.opening[data-variante="a"] .brandreveal {
+  animation:
+    masc-a var(--in-logo-dur) var(--ease-logo-a) var(--in-logo-delay) both,
+    presenca .35s linear var(--in-logo-delay) both;
+}
+/* ---- VARIANTE B — cinematográfica: rise sutil + véu (curtain) + opacidade controlada ---- */
+.opening[data-variante="b"] .brandreveal {
+  animation:
+    veu-b var(--in-logo-dur) var(--ease-logo-b) var(--in-logo-delay) both,
+    subida-b .95s var(--ease-rise-b) var(--in-logo-delay) both,
+    presenca 1.05s var(--ease-rise-b) var(--in-logo-delay) both;
+}
+
+/* ---- CTA: parte da MESMA timeline de entrada (delay após o slogan); gating pelo JS ----
+   A: revelação por máscara, coerente com a logo. B: entrada cinematográfica (véu + sutil
+   recuo), coerente com a logo. O delay de 2s coloca o botão como terceiro passo da voz. */
+.hero-controls { position: absolute; inset: 0; z-index: 5; }
+.opening[data-entered="1"] .hero-controls { visibility: visible; }
+.action { position: absolute; top: 73%; left: 5%; right: 5%; text-align: center; }
+.opening[data-variante="a"] .action {
+  animation:
+    masc-a var(--in-cta-dur) var(--ease-logo-a) var(--in-cta-delay) both,
+    presenca .35s linear var(--in-cta-delay) both;
+}
+.opening[data-variante="b"] .action {
+  animation:
+    veu-b var(--in-cta-dur) var(--ease-logo-b) var(--in-cta-delay) both,
+    subida-b var(--in-cta-dur) var(--ease-rise-b) var(--in-cta-delay) both,
+    presenca .35s linear var(--in-cta-delay) both;
+}
+.action :is(button, a.cta) {
+  display: inline-block; min-height: 48px; padding: 15px 28px; border: 1px solid #faf5eb; border-radius: 40px;
+  background: #faf5eb; color: #243b2b; font: 11px Arial, sans-serif; letter-spacing: .14em; cursor: pointer;
+  text-decoration: none;
+}
+.action :is(button, a.cta):focus-visible { outline: 3px solid white; outline-offset: 5px; }
+#cta-status { font-size: 12px; line-height: 1.5; margin: 12px auto; max-width: 340px; }
+
+.cue {
+  position: absolute; bottom: 7%; left: 0; right: 0; margin: 0; text-align: center;
+  font-size: 9px; letter-spacing: .3em; color: #d3cbb8;
+  animation: surgir var(--in-cue-dur) ease var(--in-cue-delay) both;
+}
+
+/* ---- Rótulos da prova (não pertencem à produção) ---- */
+.proof-label, .progress {
+  position: absolute; z-index: 7; bottom: 16px;
+  font: 9px/1.5 Arial, sans-serif; letter-spacing: .08em;
+  background: #102019d9; padding: 5px 8px; border: 1px solid #f5eee333;
+}
+.proof-label { left: 16px; } .progress { right: 16px; }
+.chip-a, .chip-b { opacity: .35; }
+.opening[data-variante="a"] .chip-a, .opening[data-variante="b"] .chip-b { opacity: 1; color: #ffe9b8; }
+.switch { position: absolute; z-index: 8; top: 92px; right: 16px; display: flex; flex-direction: column; gap: 6px; }
+.switch-item {
+  display: block; padding: 7px 10px; font: 10px Arial, sans-serif; letter-spacing: .1em;
+  color: #f5eee3; text-decoration: none; background: #102019d9; border: 1px solid #f5eee333;
+}
+.switch-item:hover { border-color: #f5eee399; }
+.switch-item[data-variante="a"]:not(:hover), .switch-item[data-variante="b"]:not(:hover) { opacity: .5; }
+.opening[data-variante="a"] .switch-item[data-variante="a"],
+.opening[data-variante="b"] .switch-item[data-variante="b"] { opacity: 1; border-color: #ffe9b8; }
+
+
+/* ---- Sem slogan: nenhum vazio percebível ---- */
+.opening[data-slogan="0"] .slogan { display: none; }
+
+/* ---- Movimento reduzido: estado final imediato ---- */
+@media (prefers-reduced-motion: reduce) {
+  .brandreveal, .rule, .atelier, .slogan, .topbar, .cue, .action {
+    animation: none !important;
+  }
+}
+
+/* ---- Responsividade ---- */
+@media (max-width: 600px) {
+  h1 { font-size: 19vw; letter-spacing: .15em; padding-left: .15em; }
+  .rule { margin-top: 26px; }
+  .identity .atelier { font-size: 9px; letter-spacing: .28em; }
+  .slogan { font-size: 9px; letter-spacing: .32em; margin-top: 20px; }
+  .topbar { height: 64px; } .topbar span:last-child { font-size: 8px; }
+  .action { top: 68%; } .action :is(button, a.cta) { font-size: 10px; padding-inline: 20px; }
+  .proof-label, .progress { bottom: 10px; font-size: 8px; }
+  .proof-label { left: 10px; } .progress { right: 10px; }
+  .switch { top: 74px; }
+}
+@media (max-height: 480px) and (min-width: 601px) {
+  h1 { font-size: 20svh; } .rule { margin: 18px auto 12px; }
+  .topbar { height: 50px; } .action { top: 74%; }
+}
+
+/* Encaixe geométrico na prova conjunta; keyframes e tempos originais preservados */
+.opening{position:absolute;inset:0;width:100%;height:100svh;z-index:1}
+
+/* H12 aprovado: composição limpa e movimento refinado; sem números nem coluna lateral. */
+&{--paper:#ebe6d9;--ink:#24362b;--ui:'Avenir Next','Segoe UI',sans-serif;--serif:'Palatino Linotype',Palatino,Georgia,serif}
+&{scroll-behavior:auto}&{margin:0;background:#1b3026;color:#efeade;font-family:var(--ui);-webkit-font-smoothing:antialiased}button{cursor:pointer;font:inherit}
+button:focus-visible,a:focus-visible,label:focus-within{outline:2px solid #d5bc88;outline-offset:3px}
+.track{height:295svh;position:relative}.stage{position:sticky;top:0;height:100svh;overflow:clip;isolation:isolate}
+.filosofia{position:absolute;inset:0;z-index:3;display:grid;grid-template-columns:minmax(0,43%) minmax(0,57%);background:var(--paper);color:var(--ink);clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%);will-change:clip-path}
+.editorial{background:var(--paper);padding:clamp(44px,5.6vw,85px) clamp(28px,4.4vw,75px) 38px;display:flex;flex-direction:column;min-width:0;overflow:hidden;position:relative}
+.editorial:before{position:absolute;content:'';inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 69px,#837e7107 70px);pointer-events:none}
+.copy{margin:auto 0;opacity:0;transform:translateY(34px);will-change:transform,opacity}
+.eyebrow{display:block;font-size:10px;letter-spacing:.26em;color:#71806f;font-weight:650}
+.copy h2{font:400 clamp(37px,4.7vw,76px)/1.12 var(--serif);letter-spacing:-.065em;margin:30px 0;max-width:640px}
+.copy h2 em{color:#89927e;font-weight:400}
+.copy p{font-size:clamp(13px,1.15vw,17px);line-height:1.85;max-width:390px;color:#546456}
+.editorial-cta{display:inline-flex;align-items:center;gap:27px;margin-top:40px;border-bottom:1px solid #607465;padding-bottom:12px;font-size:10px;letter-spacing:.16em;font-weight:650;text-decoration:none;color:inherit;width:max-content;max-width:100%}
+.editorial-cta span{font-size:16px;font-weight:400}
+.editorial-foot{display:flex;justify-content:flex-start;align-items:end;font-size:8px;letter-spacing:.16em;color:#828b7f}
+.imagebox{margin:4.5vw 4.3vw 4.5vw 0;position:relative;min-width:0;overflow:hidden;background:#949d88;isolation:isolate}
+.clientimage{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;filter:saturate(.87) contrast(1.03);transform:scale(1.07);will-change:transform}
+.imagebox:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#162b1a44,transparent 30%,transparent 72%,#162b1a74);pointer-events:none}
+&[data-case=retrato] .filosofia{grid-template-columns:minmax(0,51%) minmax(0,49%)}
+&[data-case=retrato] .imagebox{margin:6.5vw 5vw 6.5vw 0}
+&[data-case=detalhe] .filosofia{grid-template-columns:minmax(0,45%) minmax(0,55%)}
+&[data-case=detalhe] .imagebox{margin:3.8vw 4.3vw 3.8vw 0}
+.transition-seam{position:absolute;z-index:4;top:0;left:100%;width:2px;height:100%;pointer-events:none;opacity:0;background:linear-gradient(180deg,transparent 9%,#f9e2b5bb 40%,#f9e2b588 74%, transparent 94%);box-shadow:0 0 13px 2px #ffe6b047;will-change:left,opacity}
+.title-row{display:block;overflow:hidden;padding-bottom:.09em;margin-bottom:-.09em}.title-ink{display:block;will-change:transform}
+.image-veil{position:absolute;z-index:1;inset:0;pointer-events:none;background:linear-gradient(115deg,#213b2b 0%,#1f362b 48%,#20392b 100%);opacity:0;will-change:opacity}
+.laboratorio{background:#f2efe6;color:#213a2d;min-height:55svh;padding:clamp(85px,12vw,160px) clamp(25px,9vw,140px) 100px}.lab-kicker{font-size:10px;letter-spacing:.24em;color:#647763;font-weight:700}
+.laboratorio h2{font:400 clamp(36px,5.6vw,78px)/1.08 var(--serif);letter-spacing:-.055em;margin:24px 0}.laboratorio h2 em{color:#909780}
+.laboratorio p{font-size:15px;line-height:1.8;max-width:640px;color:#526756}
+.painel-teste{position:fixed;z-index:30;bottom:15px;left:15px;right:15px;display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;pointer-events:none}
+.test-row{display:flex;gap:5px;align-items:center;pointer-events:auto;padding:5px;background:#112b20f0;border:1px solid #f1e7d344;border-radius:10px}
+.test-row button,.upload{display:inline-block;color:#f8f3e8;border:0;background:transparent;padding:10px 13px;font:600 10px var(--ui);letter-spacing:.05em;border-radius:6px;white-space:nowrap;cursor:pointer}
+.test-row button[aria-pressed=true]{background:#d7c6a5;color:#1b3026}.test-row button:hover:not([aria-pressed=true]),.upload:hover{background:#46634d}.test-label{font:600 9px var(--ui);letter-spacing:.1em;color:#becdbf;padding:0 8px}
+@media(max-width:980px){.editorial{padding:70px 26px 28px}.copy h2{font-size:clamp(35px,4.8vw,55px)}}
+@media(max-width:680px){.track{height:255svh}.filosofia,&[data-case=retrato] .filosofia,&[data-case=detalhe] .filosofia{grid-template-columns:minmax(0,1fr);grid-template-rows:45% 55%}
+.imagebox,&[data-case=retrato] .imagebox,&[data-case=detalhe] .imagebox{grid-column:1;grid-row:1;margin:0}
+.editorial{grid-column:1;grid-row:2;padding:22px 26px 18px}.copy h2{font-size:clamp(32px,8.5vw,52px);margin:13px 0 14px}
+.eyebrow{font-size:8px}.copy p{font-size:clamp(11px,3vw,13px);line-height:1.55}.editorial-cta{margin-top:16px;padding-bottom:5px;font-size:8px;gap:10px}.editorial-foot{font-size:7px}
+.painel-teste{bottom:6px;left:6px;right:6px;justify-content:center;gap:4px}.test-row{padding:3px;gap:2px}.test-row button,.upload{padding:7px;font-size:9px}.test-label{font-size:8px;padding:0 3px}
+}
+@media(max-width:380px){.filosofia,&[data-case=retrato] .filosofia,&[data-case=detalhe] .filosofia{grid-template-rows:43% 57%}.editorial{padding:18px 20px}.copy h2{font-size:30px}.copy p{font-size:10px}.test-row button,.upload{padding:6px 5px;font-size:8px}}
+@media(prefers-reduced-motion:reduce){.track{height:auto}.stage{height:auto;position:relative;overflow:visible}.opening{position:relative;height:100svh}.filosofia{position:relative;clip-path:none!important;min-height:100svh}
+.copy,.clientimage,.imagebox,.title-ink,.eyebrow,.description,.editorial-cta,.editorial-foot{opacity:1!important;transform:none!important;clip-path:none!important}.image-veil,.transition-seam{display:none!important}}
+
+/* Evita faixa reservada para scrollbar aparecendo como lateral decorativa. */
+&{scrollbar-gutter:auto}
+
+}

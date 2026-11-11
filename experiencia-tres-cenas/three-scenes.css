@@ -1,0 +1,43 @@
+/* ÉLAN — Estudo isolado de três cenas.
+   H00/H01/H12 retain their exact master CSS and JS. No rules here target .opening. */
+.home-page .elementis,.home-page .differences,.home-page .elementis-background{display:none!important}
+.home-page .theater{
+ position:absolute;inset:0;z-index:12;overflow:hidden;isolation:isolate;
+ color:#f3f0e7;background:#15271e;visibility:hidden;pointer-events:none;
+}
+.home-page .theater:not([aria-hidden="true"]){pointer-events:auto}
+.theater-expander{position:absolute;inset:0;overflow:hidden;background:#203b2e;will-change:top,left,width,height}
+.theater-source,.theater-slice{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.theater-slices{position:absolute;inset:0;overflow:hidden}
+.theater-slice{will-change:transform;transform:translateX(105%)}
+.theater-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,23,19,.85),rgba(8,25,21,.44) 52%,rgba(8,25,21,.17)),linear-gradient(0deg,#081a14a8,transparent 45%)}
+.theater-editorial{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;padding:clamp(85px,10vh,115px) clamp(25px,6.3vw,110px) 5vh;opacity:0;transform:translateY(30px);will-change:transform,opacity}
+.theater-kicker{font:600 10px/1.4 'Segoe UI',Arial,sans-serif;letter-spacing:.25em;color:#dedbd2}
+.theater-main{margin:auto 0;max-width:min(770px,73vw)}
+.theater-index{font:600 11px/1.4 'Segoe UI',Arial,sans-serif;letter-spacing:.16em;color:#ddc8a7;margin:0 0 22px}
+.theater-title{font:400 clamp(54px,8.5vw,134px)/.97 'Palatino Linotype',Palatino,Georgia,serif;letter-spacing:-.056em;text-wrap:balance;margin:0 0 26px}
+.theater-description{font:400 clamp(14px,1.1vw,17px)/1.7 'Segoe UI',Arial,sans-serif;max-width:400px;color:#f0ebde;margin:0}
+.theater-cta{display:inline-flex;align-items:center;gap:32px;border-bottom:1px solid #d7c2a2;padding:17px 0 13px;margin-top:28px;color:#fff;font:600 10px 'Segoe UI',Arial,sans-serif;letter-spacing:.17em;text-decoration:none}
+.theater-cta span{font-size:18px}
+.theater-bottom{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:18px;border-top:1px solid #ffffff62;font:600 10px 'Segoe UI',Arial,sans-serif;letter-spacing:.18em}
+.theater-nav{display:flex;gap:8px}
+.theater-nav button{background:#ffffff15;border:1px solid #ffffff6b;color:#fff;width:55px;height:47px;font-size:21px;transition:background-color .3s}
+.theater-nav button:hover{background:#ffffff36}
+@media(max-width:680px){
+ .theater-editorial{padding:90px 26px max(23px,5vh)}
+ .theater-main{max-width:100%;margin:auto 0}
+ .theater-title{font-size:clamp(51px,13vw,78px);max-width:97%}
+ .theater-description{font-size:13px;line-height:1.65;max-width:290px}
+ .theater-kicker,.theater-index,.theater-cta,.theater-bottom{font-size:9px}
+ .theater-bottom{gap:10px;letter-spacing:.11em}
+ .theater-nav button{width:45px;height:42px}
+ .theater-shade{background:linear-gradient(90deg,#071b16b8,#071b1655),linear-gradient(0deg,#071b1699,transparent 70%)}
+}
+@media(prefers-reduced-motion:reduce){
+ .home-page .theater{visibility:visible!important;position:relative!important;inset:auto!important;min-height:90svh;height:auto!important;display:block!important;opacity:1!important;pointer-events:auto!important}
+ .home-page .theater-expander{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
+ .home-page .theater-editorial{position:relative;min-height:90svh;opacity:1!important;transform:none!important}
+ .home-page .theater-slice{display:none}
+ .home-page .theater-slice:first-child{display:block;clip-path:none!important;transform:none!important}
+ .home-page .theater-source{display:none}
+}

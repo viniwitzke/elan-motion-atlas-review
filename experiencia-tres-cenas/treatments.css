@@ -1,0 +1,71 @@
+/* Tratamentos — variante original (1–5) e composição editorial expandida (6+). */
+.treatment-track{height:340svh;position:relative}
+.treatment-stage{position:sticky;top:0;height:100svh;overflow:clip;isolation:isolate;background:#11261c}
+.treatment-heading{position:absolute;z-index:25;top:22%;left:6%;width:42%;text-align:left;pointer-events:none;color:var(--paper);transform-origin:left top}
+.treatment-heading span{font-size:10px;letter-spacing:.22em}.treatment-heading h1{font:400 clamp(48px,6.7vw,112px)/1.05 var(--serif);margin:20px 0;letter-spacing:-.045em}.treatment-heading h2{font:400 clamp(42px,5vw,80px)/1.1 var(--serif);margin:18px 0;letter-spacing:-.045em}.treatment-heading p{font:18px/1.5 var(--serif);max-width:25ch}
+
+.treatment-card{position:absolute;left:0;top:0;overflow:clip;transform-origin:center;isolation:isolate;background:#284638;color:var(--paper)}
+.treatment-track[data-variant="original"] .treatment-card{left:50%;top:54%}
+.treatment-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.76,.2,1)}
+.card-dim{position:absolute;inset:0;background:linear-gradient(0deg,#030a08ee,#030a0800 80%);opacity:.65;transition:opacity .25s}
+.card-toggle{position:absolute;inset:0;width:100%;display:flex;align-items:end;justify-content:space-between;gap:12px;padding:20px;background:transparent;border:0;color:white;text-align:left;font:14px/1.4 var(--ui);cursor:pointer}
+.card-toggle:focus-visible{outline-offset:-5px}
+.card-content{position:absolute;inset:20px;padding-top:46px;display:flex;flex-direction:column;justify-content:end;opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s;pointer-events:none;color:white;overflow-y:auto}
+.card-content h2{font:400 clamp(23px,2.1vw,34px)/1.1 var(--serif);margin:0 0 12px}.card-content p{font:14px/1.5 var(--ui);margin:0 0 20px}
+.card-content a{display:flex;align-items:center;min-height:44px;border:1px solid #dccaa7;padding:12px;text-decoration:none;font-size:10px;line-height:1.5;letter-spacing:.08em;pointer-events:auto}
+.card-close{position:absolute;top:0;right:0;min-height:44px;border:0;background:transparent;color:inherit;font:12px var(--ui);padding:8px;pointer-events:auto}
+.treatment-card.selected{z-index:35!important}.treatment-card.selected>img{transform:scale(1.06)}.treatment-card.selected .card-dim{opacity:1;background:#071a13e6}.treatment-card.selected .card-content{opacity:1;transform:none;pointer-events:auto}.treatment-card.selected .card-toggle>span{opacity:0}
+
+/* Cards sem fotografia: a tipografia é o material, sem imagem repetida ou inventada. */
+.card-type{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:24px;background:var(--paper);color:var(--forest)}
+.card-type span{font-size:12px;letter-spacing:.15em}.card-type strong{font:400 clamp(26px,3vw,48px)/1.12 var(--serif);overflow-wrap:anywhere}
+.typographic .card-dim{opacity:0}.typographic .card-toggle{color:var(--forest)}.typographic.selected .card-type{opacity:0}
+
+.gallery-caption{position:absolute;left:6%;bottom:7%;margin:0;font:20px var(--serif);color:var(--paper)}
+
+/* 6+ — mesma família visual, composição assimétrica própria. */
+.expanded-track{height:250svh}
+.expanded-track .treatment-heading{left:5.5%;top:84px;width:48%}
+.expanded-track .treatment-heading h1{font:400 clamp(48px,6.8vw,108px)/1 var(--serif);letter-spacing:-.04em;margin:22px 0}
+.expanded-track .treatment-card{background:#ebe6d9;color:var(--forest);box-shadow:none}
+.expanded-track .treatment-card>img{transition:transform .45s cubic-bezier(.2,.76,.2,1)}
+.expanded-track .card-toggle{background:linear-gradient(transparent 40%,#071a13cc);font:15px/1.4 var(--ui);color:#fff}
+.expanded-track .typographic .card-toggle{background:transparent;color:var(--forest)}
+.expanded-track .card-content{inset:0;padding:22px;justify-content:flex-start;background:#ebe6df;color:var(--forest)}
+.expanded-track .card-content h2{margin-top:18px}
+.expanded-track .card-content p{font:14px/1.6 var(--ui)}
+.expanded-track .card-content a{border-color:var(--forest);color:var(--forest)}
+.expanded-track .card-close{top:14px;right:14px}
+.expanded-track .card-dim{opacity:.55}
+.expanded-track .typographic:nth-child(3n) .card-type{background:var(--gold)}
+.expanded-track .card-type strong{font-size:clamp(25px,2.5vw,44px)}
+.expanded-track .card-type span{font-size:11px}
+
+@media(max-width:1100px){
+ .expanded-track .card-type{padding:18px;gap:16px}
+ .expanded-track .card-type strong{font-size:clamp(20px,3.4vw,30px)}
+ .expanded-track .card-toggle{font-size:12px}
+}
+
+/* Mobile: composição em fluxo, intencional e completa — não um desktop encolhido. */
+.flow-gallery{height:auto}
+.flow-gallery .treatment-stage{position:relative;height:auto;overflow:visible;padding:96px 24px 64px}
+.flow-gallery .treatment-heading{position:relative;inset:auto;width:100%;margin-bottom:32px;transform:none!important}
+.flow-gallery .treatment-heading h1{font-size:clamp(42px,12vw,66px);margin:14px 0}
+.flow-gallery .treatment-heading h2{font-size:clamp(34px,10vw,54px);margin:14px 0}
+.flow-gallery .treatment-heading p{font-size:17px;margin:0}
+.flow-gallery .treatment-cards{display:grid;grid-template-columns:1fr;gap:32px}
+.treatment-track.flow-gallery .treatment-card{position:relative;inset:auto;left:auto;top:auto;min-width:0;width:100%;height:clamp(300px,54svh,480px);scroll-margin-top:80px;opacity:1}
+.flow-gallery .treatment-card:nth-child(even){width:92%;justify-self:end}
+.flow-gallery .typographic{height:clamp(240px,38svh,320px)}
+.flow-gallery .card-content{inset:18px;padding-top:44px}
+.flow-gallery .card-content h2{font-size:clamp(26px,7vw,32px)}
+.flow-gallery .gallery-caption{position:relative;inset:auto;margin:32px 0 0}
+.flow-gallery .expanded-track .treatment-card{height:clamp(300px,54svh,460px)}
+.flow-gallery .expanded-track .card-type strong{font-size:clamp(28px,7vw,40px)}
+.flow-gallery .expanded-track .card-content h2{margin-top:14px}
+
+@media(prefers-reduced-motion:reduce){
+ .flow-gallery .treatment-card{transform:none!important}
+ .flow-gallery .treatment-card:nth-child(even){width:100%}
+}
