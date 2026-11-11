@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#153428">
+<title>ÉLAN — Prova de abertura 02</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="vertente-b.css">
+<script defer src="vendor/gsap.min.js"></script><script defer src="vendor/ScrollTrigger.min.js"></script><script defer src="vertente-b.js"></script>
+</head>
+<body class="experiment experiment--b">
+<a class="skip-link" href="#main">Ir para a experiência</a>
+<header class="elan-navigation" aria-label="Navegação da prova">
+  <a class="brand" href="index.html" aria-label="ÉLAN — voltar ao painel">ÉLAN</a>
+  <nav aria-label="Experiências">
+    <a href="index.html">Painel</a>
+    <a href="vertente-a.html">Vertente 01</a>
+    <a href="vertente-b.html" aria-current="page">Vertente 02</a>
+  </nav>
+</header>
+<main id="main">
+<section class="scene scene--cinema" id="sceneB" aria-label="Abertura de Tratamentos com transição de câmera">
+  <div class="camera-stage">
+    <div class="camera-window" id="cameraWindow">
+      <div class="camera-slide camera-slide--first" id="cameraSlideFirst">
+        <img class="camera-slide__image" src="assets/skin-texture.jpg" alt="">
+      </div>
+      <div class="camera-slide camera-slide--second" id="cameraSlideSecond">
+        <img class="camera-slide__image" src="assets/treatment-close.jpg" alt="">
+      </div>
+    </div>
+    <div class="camera-vignette" aria-hidden="true"></div>
+    <div class="film-type film-type--first" id="filmFirst">
+      <span class="film-type__overline">ÉLAN / Wellness Atelier</span>
+      <h1>Tratamentos</h1>
+      <p>O luxo de sentir.</p>
+    </div>
+    <div class="film-type film-type--second" id="filmSecond">
+      <span class="film-type__overline">ÉLAN / Uma experiência de cuidado</span>
+      <h2>O cuidado começa<br><em>no encontro.</em></h2>
+      
+    </div>
+    <div class="film-progress" aria-hidden="true"><span id="filmProgress"></span></div>
+    <div class="film-footnote">A imagem conduz / a leitura permanece</div>
+    <div class="scroll-indicator"><span class="scroll-indicator__dash"></span>Continue rolando</div>
+  </div>
+</section>
+<section class="cinema-followup" aria-label="Continuação da prova">
+  <div class="cinema-followup__rule"></div>
+  <span class="micro">A passagem termina. A leitura permanece.</span>
+  <h2>O espaço entre<br>um momento e outro.</h2>
+  <p>Esta prova preserva o movimento de câmera do C09–24. Nenhuma nova seção comercial foi inventada.</p>
+  <a href="vertente-a.html" class="next-approach">Comparar com a primeira experiência <span aria-hidden="true">↗</span></a>
+</section>
+</main>
+<footer class="preview-disclaimer">Prova artística isolada · Fotografias ilustrativas · C09–24 / GSAP adaptado para scroll reversível · Master não modificado</footer>
+</body></html>
