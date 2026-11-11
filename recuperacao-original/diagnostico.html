@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÉLAN — Diagnóstico da prova original de Unreveal</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0c2319;color:#f2eee4}
+*{box-sizing:border-box}body{margin:0}.bar{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 18px;background:#123324;border-bottom:1px solid #637567}
+strong{font-weight:600}.bar button,.bar a{border:1px solid #b5c4b7;border-radius:3px;background:transparent;color:inherit;padding:10px 13px;font-size:14px;text-decoration:none;cursor:pointer}.bar button:hover,.bar a:hover{background:#275240}
+.status{display:flex;gap:14px;flex-wrap:wrap;margin:0;padding:10px 18px;font:13px/1.5 ui-monospace,monospace;background:#06170f}
+.status span{white-space:nowrap}.status strong{color:#e7d5a7}.frame{width:100%;height:calc(100dvh - 132px);min-height:450px;border:0;display:block}
+p{margin:0}.hint{font-size:12px;opacity:.8}
+@media(max-width:760px){.frame{height:calc(100dvh - 190px)}.bar{gap:7px;padding:9px}.bar button,.bar a{font-size:12px;padding:8px}.status{font-size:11px;gap:8px}}
+</style>
+</head>
+<body>
+<div class="bar">
+ <strong>PROVA ORIGINAL / 05.11.2026</strong>
+ <button id="circle">Testar Circle</button>
+ <button id="strip">Testar Strip</button>
+ <button id="close">Fechar revelação</button>
+ <a href="./NPE_Tratamentos_03_Unreveal_Foto_Fixa.html" target="_blank" rel="noopener">Abrir original sem diagnóstico</a>
+ <p class="hint">Este painel é externo. O HTML original abaixo não foi modificado.</p>
+</div>
+<div class="status" role="status">
+ <span>Arquivo: <strong id="ready">Carregando</strong></span>
+ <span>Movimento reduzido: <strong id="reduced">—</strong></span>
+ <span>Estado: <strong id="state">—</strong></span>
+ <span>Máscara: <strong id="mask">—</strong></span>
+ <span>Animações ativas: <strong id="active">—</strong></span>
+</div>
+<iframe id="original" class="frame" src="./NPE_Tratamentos_03_Unreveal_Foto_Fixa.html" title="Arquivo original Unreveal 05 de novembro"></iframe>
+<script>
+const frame=document.querySelector('#original');
+const $=id=>document.getElementById(id);
+function doc(){try{return frame.contentDocument}catch{return null}}
+let isReady=false;
+frame.addEventListener('load',()=>{isReady=!!doc()?.querySelector('.treatment');$('ready').textContent=isReady?'Original carregado':'Falha ao carregar';});
+function launch(kind){
+ const d=doc();if(!d)return;
+ const detail=d.getElementById('detail'),open=detail?.getAttribute('aria-hidden')==='false';
+ if(open){d.getElementById('back')?.click();setTimeout(()=>launch(kind),980);return}
+ d.getElementById(kind==='circle'?'motionCircle':'motionStrip')?.click();
+ d.querySelector('.treatment')?.click();
+}
+$('circle').addEventListener('click',()=>launch('circle'));
+$('strip').addEventListener('click',()=>launch('strip'));
+$('close').addEventListener('click',()=>doc()?.getElementById('back')?.click());
+let last='';
+function report(){
+ const d=doc(),detail=d?.getElementById('detail');
+ if(d&&detail){
+  $('reduced').textContent=frame.contentWindow.matchMedia('(prefers-reduced-motion: reduce)').matches?'SIM — efeitos reduzidos':'NÃO';
+  $('state').textContent=detail.getAttribute('aria-hidden')==='false'?'DETALHE ABERTO':'LISTA';
+  const style=frame.contentWindow.getComputedStyle(detail);
+  const cp=style.clipPath,mask=style.maskImage;
+  $('mask').textContent=cp&&cp!=='none'?cp.slice(0,46):mask&&mask!=='none'?'Strip ativa':'Nenhuma';
+  $('active').textContent=detail.getAnimations().filter(a=>a.playState==='running').length;
+ }
+ requestAnimationFrame(report);
+}report();
+</script>
+</body></html>
